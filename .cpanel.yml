@@ -1,5 +1,5 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/crmcentraverse/public_html/catamount
+    - export DEPLOYPATH=/home/crmcentraverse/public_html/rinserevolution
     - /bin/cp * $DEPLOYPATH
