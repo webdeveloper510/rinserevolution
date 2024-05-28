@@ -1,0 +1,5 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/crmcentraverse/public_html/catamount
+    - /bin/cp * $DEPLOYPATH
