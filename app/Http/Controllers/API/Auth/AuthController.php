@@ -36,7 +36,6 @@ class AuthController extends Controller
 
     public function register(RegistrationRequest $request)
     {
-
         $contact = $request->mobile ?? $request->email;
 
         $user = $this->userRepo->registerUser($request);
@@ -53,7 +52,7 @@ class AuthController extends Controller
             'mobile_verified_at' => now()
         ]);
 
-        if($request->device_key){
+        if ($request->device_key) {
             (new DeviceKeyRepository())->storeByRequest($user->customer, $request);
         }
 
@@ -63,7 +62,7 @@ class AuthController extends Controller
         // (new SMS())->sendSms($request->mobile, $message);
         UserMailEvent::dispatch($user, $verificationCode->otp);
 
-        return $this->json('Registration successfully complete' , [
+        return $this->json('Registration successfully complete', [
             'user' => new UserResource($user),
             'access' => $this->userRepo->getAccessToken($user),
             'otp' => $verificationCode->otp
@@ -93,7 +92,7 @@ class AuthController extends Controller
     {
         if ($user = $this->authenticate($request)) {
             if ($user->customer) {
-                if($request->device_key){
+                if ($request->device_key) {
                     (new DeviceKeyRepository())->storeByRequest($user->customer, $request);
                 }
 
@@ -109,7 +108,7 @@ class AuthController extends Controller
     public function logout()
     {
         $user = auth()->user();
-        if(\request()->device_key){
+        if (\request()->device_key) {
             (new DeviceKeyRepository())->destroy(\request()->device_key);
         }
 
@@ -136,14 +135,14 @@ class AuthController extends Controller
         $contact = $request->contact;
         $user = $this->userRepo->findByContact($contact);
 
-        if($user){
+        if ($user) {
             $verificationCode = $this->verificationCodeRepo->findOrCreateByContact($contact);
-            $message = "Hello \r\n". $user->name . 'Your password reset otp is '. $verificationCode->otp ;
+            $message = "Hello \r\n" . $user->name . 'Your password reset otp is ' . $verificationCode->otp;
 
             // (new SMS())->sendSms($request->contact, $message);
             UserMailEvent::dispatch($user, $verificationCode->otp);
 
-            return $this->json('Verification code is resent success to your contact',[
+            return $this->json('Verification code is resent success to your contact', [
                 'otp' => $verificationCode->otp
             ]);
         }

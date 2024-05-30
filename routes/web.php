@@ -224,7 +224,7 @@ Route::middleware(['auth', 'role:root|visitor'])->group(function () {
     });
 
     //  SMS Gateway
-    Route::controller(SMSGatewaySetupController::class)->group(function(){
+    Route::controller(SMSGatewaySetupController::class)->group(function () {
         Route::get('/sms-gateway', 'index')->name('sms-gateway.index');
         Route::put('/sms-gateway', 'update')->name('sms-gateway.update');
     });
@@ -246,7 +246,6 @@ Route::middleware(['auth', 'role:root|visitor'])->group(function () {
         Route::get('/mail-configuration', 'index')->name('mail-config.index');
         Route::put('/mail-configuration', 'update')->name('mail-config.update');
     });
-
 });
 
 Route::get('/order-payment/{order}/{card}', [PaymentController::class, 'payment'])->name('payment');
