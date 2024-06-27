@@ -69,6 +69,7 @@ Route::middleware(['auth:api', 'role:customer'])->group(function () {
     Route::post('/users/profile-photo/update', [UserController::class, 'updateProfilePhoto']);
     Route::post('/users/change-password', [UserController::class, 'changePassword']);
 
+
     Route::get('/customers', [CustomerController::class, 'show']);
 
     Route::get('/card-list', [CardController::class, 'index']);
@@ -164,3 +165,6 @@ Route::group(['prefix' => '/driver', 'middleware' => ['auth:api', 'role:driver']
 
     Route::get('/logout', [DriverLoginController::class, 'logout']);
 });
+
+
+Route::post('/users/delete', [UserController::class, 'UserDelete']);

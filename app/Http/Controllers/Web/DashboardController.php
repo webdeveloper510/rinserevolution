@@ -20,7 +20,7 @@ class DashboardController extends Controller
 
         $revenues = (new OrderRepository())->getRevenueReport();
 
-        $confirmOrder = (new OrderRepository())->getByStatus('Order confirmed')->count();
+        $confirmOrder = (new OrderRepository())->getByStatus('Confirmed')->count();
         $completeOrder = (new OrderRepository())->getByStatus('Delivered')->count();
         $pendingOrder = (new OrderRepository())->getByStatus('Pending')->count();
         $onPregressOrder = (new OrderRepository())->getByStatus('Processing')->count();
