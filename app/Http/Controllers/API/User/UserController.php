@@ -49,7 +49,7 @@ class UserController extends Controller
     {
         try {
             $id = $request->id;
-            // DB::table('device_keys')->where('customer_id', $id)->delete();
+            DB::table('device_keys')->where('customer_id', $id)->delete();
             $orderID = DB::table('orders')->where('customer_id', $id)->get();
             
             // print_r($orderID);
@@ -71,9 +71,17 @@ class UserController extends Controller
             DB::table('customers')->where('id', $id)->delete();
             DB::table('users')->where('id', $customerID->user_id)->delete();
 
-            return response(['success' => true, 'msg' => 'User deleted'], 200);
+            $resMsg = [
+                "code" => 200,
+                "msg" => "User deleted successfully !!",
+            ];
+            return response($resMsg, 200);
         } catch (\Throwable $e) {
-            return response(['success' => false, 'error' => $e->getMessage()], 400);
+           $resMsg = [
+                "code" => 400,
+                "msg" => 'error' . $e->getMessage(),
+            ];
+            return response($resMsg, 400);
         }
     }
 }
