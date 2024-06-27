@@ -50,9 +50,12 @@ class UserController extends Controller
         try {
             $id = $request->id;
             DB::table('device_keys')->where('customer_id', $id)->delete();
-            DB::table('orders')->where('customer_id', $id)->delete();
+            $orderID = DB::table('orders')->where('customer_id', $id)->first();
+            DB::table('orders')->where('customer_id', $orderID->order_id)->delete();
+
             DB::table('addresses')->where('customer_id', $id)->delete();
             $customerID = DB::table('customers')->where('id', $id)->first();
+            
             DB::table('customers')->where('id', $id)->delete();
             DB::table('users')->where('id', $customerID->user_id)->delete();
 
