@@ -15,20 +15,27 @@
                 <div class="card-body">
                     <x-form route="service.store" type="Submit">
                         <label>{{ __('Name') }}</label>
-                        <x-input name="name" type='text' placeholder="{{ __('Service').' '.__('Name') }}"/>
+                        <x-input name="name" type='text' placeholder="{{ __('Service').' '.__('Name') }}" />
 
                         <!--<label>{{ __('Name').' '.__('of'). ' '. __('Arabic') }}</label>-->
                         <!--<x-input name="name_bn" type='text' placeholder="{{ __('Service').' '.__('Name'). ' '. __('Arabic') }}"/>-->
 
+                        <label>{{ __('Select').' '.__('Types') }}</label>
+                        <x-select :multi="false" name="types">
+                            @foreach (\App\Models\Service::$types as $tKey => $type)
+                            <option value="{{ $tKey }}">{{ $type}}</option>
+                            @endforeach
+                        </x-select>
+
                         <label>{{ __('Select').' '.__('Variants') }}</label>
                         <x-select :multi="true" name="variant_ids[]">
                             @foreach ($variants as $variant)
-                                <option value="{{ $variant->id }}">{{ $variant->name}}</option>
+                            <option value="{{ $variant->id }}">{{ $variant->name}}</option>
                             @endforeach
                         </x-select>
 
                         <label>{{ __('Service').' '.__('Photo') }}</label>
-                        <x-input-file name="image" type="file"/>
+                        <x-input-file name="image" type="file" />
 
                         <label>{{ __('Service').' '.__('Description') }}</label>
                         <x-textarea name="description" placeholder="{{ __('Service').' '.__('Description') }}" />

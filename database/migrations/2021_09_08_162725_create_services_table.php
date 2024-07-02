@@ -19,6 +19,7 @@ class CreateServicesTable extends Migration
         Schema::create((new Service())->getTable(), function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('type')->nullable();
             $table->longText('description')->nullable();
             $table->foreignId('thumbnail_id')->nullable()->constrained((new Media())->getTable());
             $table->boolean('is_active')->default(false);

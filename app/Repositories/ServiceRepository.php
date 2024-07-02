@@ -40,6 +40,7 @@ class ServiceRepository extends Repository
 
         $service = $this->model()::create([
             'name' => $request->name,
+            'type' => $request->types,
             'description' => $request->description,
             'name_bn' => $request->name_bn,
             'description_bn' => $request->description_bn,
@@ -65,6 +66,7 @@ class ServiceRepository extends Repository
 
         $service->update([
             'name' => $request->name,
+            'type' => $request->types,
             'description' => $request->description,
             'name_bn' => $request->name_bn,
             'description_bn' => $request->description_bn,

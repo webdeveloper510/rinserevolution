@@ -11,8 +11,16 @@ class ServiceController extends Controller
     public function index()
     {
         $services = (new ServiceRepository())->getActiveServices();
+        $servicesNew = [];
+        $key = $_GET['type'] ?? '';
+        foreach ($services as $sKey => $sValue) {
+            if ($sValue['type'] == $key) {
+                $servicesNew[] = $sValue;
+            }
+        }
+
         return $this->json('service list', [
-            'services' => ServiceResource::collection($services)
+            'services' => ServiceResource::collection($servicesNew)
         ]);
     }
 }
