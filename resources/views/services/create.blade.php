@@ -19,13 +19,13 @@
 
                         <!--<label>{{ __('Name').' '.__('of'). ' '. __('Arabic') }}</label>-->
                         <!--<x-input name="name_bn" type='text' placeholder="{{ __('Service').' '.__('Name'). ' '. __('Arabic') }}"/>-->
-
-                        <label>{{ __('Select').' '.__('Types') }}</label>
-                        <x-select :multi="false" name="types">
-                            @foreach (\App\Models\Service::$types as $tKey => $type)
-                            <option value="{{ $tKey }}">{{ $type}}</option>
-                            @endforeach
-                        </x-select>
+                        
+                        <label class="mb-1 mt-3">{{ __('Types').' '.__('Types') }}</label>
+                            <x-select name="types">
+                                @foreach (\App\Models\Service::$types as $tKey => $type)
+                                 <option value="{{ $tKey }}">{{ $type}}</option>
+                                @endforeach
+                            </x-select>
 
                         <label>{{ __('Select').' '.__('Variants') }}</label>
                         <x-select :multi="true" name="variant_ids[]">

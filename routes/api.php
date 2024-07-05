@@ -62,6 +62,7 @@ Route::middleware(['auth:api', 'role:customer'])->group(function () {
     Route::post('/coupons/{coupon:code}/apply', [CouponController::class, 'apply']);
     Route::get('/orders', [OrderController::class, 'index']);
     Route::post('/orders', [OrderController::class, 'store']);
+    Route::post('/orders-onsite', [OrderController::class, 'storeOnsite']);
     Route::put('/orders/{order}', [OrderController::class, 'update']);
     Route::get('/orders/{id}/details', [OrderController::class, 'show']);
 

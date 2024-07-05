@@ -12,7 +12,7 @@ class ServiceController extends Controller
     {
         $services = (new ServiceRepository())->getActiveServices();
         $servicesNew = [];
-        $key = $_GET['type'] ?? '';
+        $key = $_GET['type'] ?? 0;
         foreach ($services as $sKey => $sValue) {
             if ($sValue['type'] == $key) {
                 $servicesNew[] = $sValue;

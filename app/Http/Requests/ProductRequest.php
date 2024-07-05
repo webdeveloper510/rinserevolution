@@ -41,6 +41,8 @@ class ProductRequest extends FormRequest
             'image' => [$imgRule, 'image', 'mimes:jpg,jpeg,png,gif,svg'],
             'service_id' => ['required', 'exists:services,id'],
             'variant_id' => ['required', 'exists:variants,id'],
+            'subscription_status' => ['nullable', 'boolean'],
+             'subscription_type' => ['nullable', 'string', 'max:256'],
         ];
     }
 

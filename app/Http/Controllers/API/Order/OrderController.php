@@ -31,6 +31,19 @@ class OrderController extends Controller
             'orders' => OrderResource::collection($orders)
         ]);
     }
+    
+    public function storeOnsite(Request $request)
+    {
+         $order = (new OrderRepository())->storeByRequestNew($request);
+         
+         return response()->json([
+        'message' => 'Order created',
+        'data' => [
+            'order' => $order,
+        ],
+    ],200);
+        //return $order;
+    }
 
     public function store(OrderRequest $request)
     {

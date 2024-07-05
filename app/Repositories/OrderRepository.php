@@ -29,6 +29,49 @@ class OrderRepository extends Repository
     {
         return $this->model()::whereDate('created_at', Carbon::today())->get();
     }
+    
+    public function storeByRequestNew(Request $request): Order
+    {
+       $productid = \request('product_id');
+       $getAmount = \request('amount');
+        $lastOrder = $this->query()->latest('id')->first();
+
+        $customer = auth()->user()->customer;
+      //  $getAmount = $this->getAmount($request);
+
+        $payment_type = $request->payment_type == 'cash_on_delivery' ? config('enums.payment_types.cash_on_delivery') : config('enums.payment_types.online_payment');
+        
+        $order = $this->create([
+            'customer_id' => $customer->id,
+            'order_code' => str_pad($lastOrder ? $lastOrder->id + 1 : 1, 6, "0", STR_PAD_LEFT),
+            'prefix' => 'LM',
+            'coupon_id' => $request->coupon_id,
+           // 'discount' => $getAmount['discount'],
+            // 'pick_date' => $request->pick_date ?? date('d-m-Y h:i:s'),
+            // 'delivery_date' => $request->delivery_date,
+            // 'pick_hour' => $this->setPickOrDeliveryTime($request->pick_date, $request->pick_hour),
+            // 'delivery_hour' => $this->setPickOrDeliveryTime($request->delivery_date, $request->delivery_hour, 'delivery'),
+            'amount' => $getAmount,
+            'total_amount' => $getAmount,
+           // 'delivery_charge' => $getAmount['deliveryCharge'],
+            'payment_status' => config('enums.payment_status.pending'),
+            'payment_type' => $payment_type,
+            'order_status' => config('enums.payment_status.pending'),
+            // 'address_id' => $request->address_id,
+            'instruction' => $request->instruction
+        ]);
+
+        //$order = [$productid, ['quantity' => 1],['orderID' => $order->id]];
+        
+        // $ordData = [
+        //     'productid' => $productid,
+        //     'quantity' => 1,
+        //     'orderID' => $order->id,
+        // ];
+         return $order;
+        
+        
+    }
 
     public function storeByRequest(OrderRequest $request): Order
     {

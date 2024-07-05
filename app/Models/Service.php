@@ -10,8 +10,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Service extends Model
 {
     static $types = [
+        'Onsite Laundry Service',
         'Pick Up & Delivery Laundry Service',
-        'Onsite Laundry Service'
     ];
     use HasFactory;
     protected $guarded = ['id'];

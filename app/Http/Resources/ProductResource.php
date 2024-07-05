@@ -26,6 +26,8 @@ class ProductResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'subscription_status' => $this->subscription_status ?? false,
+            'subscription_type' => $this->subscription_type ?? '',
             'name_bn' => $this->name_bn,
             'slug' => $this->slug,
             'current_price' => (int) ($this->discount_price ? $this->discount_price :  $this->price),
