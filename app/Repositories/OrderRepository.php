@@ -36,6 +36,9 @@ class OrderRepository extends Repository
         $getAmount = \request('amount');
         $platform = \request('platform');
         $address_id = \request('address_id');
+
+        prx($request->all());
+
         $lastOrder = $this->query()->latest('id')->first();
 
         $customer = auth()->user()->customer;
