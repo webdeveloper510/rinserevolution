@@ -35,6 +35,7 @@ class OrderRepository extends Repository
         $productid = \request('product_id');
         $getAmount = \request('amount');
         $platform = \request('platform');
+        $address_id = \request('address_id');
         $lastOrder = $this->query()->latest('id')->first();
 
         $customer = auth()->user()->customer;
@@ -59,7 +60,7 @@ class OrderRepository extends Repository
             'payment_status' => config('enums.payment_status.pending'),
             'payment_type' => $payment_type,
             'order_status' => config('enums.payment_status.pending'),
-            // 'address_id' => $request->address_id,
+            'address_id' => $request->address_id,
             'instruction' => $request->instruction
         ]);
 
