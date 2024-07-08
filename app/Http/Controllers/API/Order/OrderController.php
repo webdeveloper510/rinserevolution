@@ -31,17 +31,17 @@ class OrderController extends Controller
             'orders' => OrderResource::collection($orders)
         ]);
     }
-    
+
     public function storeOnsite(Request $request)
     {
-         $order = (new OrderRepository())->storeByRequestNew($request);
-         
-         return response()->json([
-        'message' => 'Order created',
-        'data' => [
-            'order' => $order,
-        ],
-    ],200);
+        $order = (new OrderRepository())->storeByRequestNew($request);
+
+        return response()->json([
+            'message' => 'Order created',
+            'data' => [
+                'order' => $order,
+            ],
+        ], 200);
         //return $order;
     }
 
@@ -68,7 +68,7 @@ class OrderController extends Controller
                 $keys = $order->customer->devices->pluck('key')->toArray();
 
                 $message = $notificationOrder->message;
-                
+
                 (new NotificationServices($message, $keys, 'New Order'));
             }
 
