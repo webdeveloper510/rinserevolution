@@ -29,7 +29,13 @@ class OrderController extends Controller
 
     public function index(Request $request)
     {
-        $orders = $this->orderRepo->getSortedByRequest($request);
+        $orderss = $this->orderRepo->getSortedByRequest($request);
+        
+        foreach($orderss as $ordKey => $ordValue) {
+            if($ordValue->address_id != 4) {
+                $orders[] = $ordValue;
+            }
+        }
 
         return view('orders.index', compact('orders'));
     }

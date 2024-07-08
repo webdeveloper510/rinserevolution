@@ -20,6 +20,7 @@ class CreateOrdersTable extends Migration
         Schema::create((new Order())->getTable(), function (Blueprint $table) {
             $table->id();
             $table->string('order_code');
+            $table->enum('platform', ['web', 'mobile'])->default('web');
             $table->string('prefix')->nullable();
             $table->foreignId('customer_id')
                 ->constrained((new Customer())->getTable());
