@@ -92,26 +92,26 @@
                                                                             :{{ __('Order') . ' ' . __('Id') }}
                                                                         </p>
                                                                         <p>
-                                                                            <strong>{{ $order->address->address_name }}</strong>
+                                                                            <strong>{{ @$order->address->address_name }}</strong>
                                                                             :{{ __('Order') . ' ' . __('From') }}
                                                                         </p>
                                                                         <p>
-                                                                            <strong>{{ $order->address->post_code }}</strong>
+                                                                            <strong>{{ @$order->address->post_code }}</strong>
                                                                             :{{ __('Post_Code') }}
                                                                         </p>
                                                                         <p>
 
-                                                                            <strong>{{ $order->address->address_line }}</strong>
+                                                                            <strong>{{ $order->address->address_line ?? '' }}</strong>
                                                                             :1 {{ __('Address_line') }}
                                                                         </p>
 
                                                                         <p>
-                                                                            <strong>{{ $order->address->address_line2 }}</strong>
+                                                                            <strong>{{ @$order->address->address_line2 }}</strong>
                                                                           :2 {{ __('Address_line') }}
                                                                         </p>
                                                                         <div class="float-right m-0">:{{ __('Delivery') . ' ' . __('Note') }} </div>
                                                                         <p class="m-0">
-                                                                            <strong>{{ $order->address->delivery_note }}</strong>
+                                                                            <strong>{{ @$order->address->delivery_note }}</strong>
                                                                         </p>
                                                                     @else
                                                                         <p>{{ __('Order') . ' ' . __('Id') }}:
@@ -119,24 +119,24 @@
                                                                         </p>
                                                                         <p>
                                                                             {{ __('Order') . ' ' . __('From') }}:
-                                                                            <strong>{{ $order->address->address_name }}</strong>
+                                                                            <strong>{{ @$order->address->address_name }}</strong>
                                                                         </p>
                                                                         <p>
                                                                             {{ __('Post_Code') }}:
-                                                                            <strong>{{ $order->address->post_code }}</strong>
+                                                                            <strong>{{ @$order->address->post_code }}</strong>
                                                                         </p>
                                                                         <p>
                                                                             {{ __('Address_line') }} 1:
-                                                                            <strong>{{ $order->address->address_line }}</strong>
+                                                                            <strong>{{ @$order->address->address_line }}</strong>
                                                                         </p>
 
                                                                         <p>
                                                                             {{ __('Address_line') }} 2:
-                                                                            <strong>{{ $order->address->address_line2 }}</strong>
+                                                                            <strong>{{ @$order->address->address_line2 }}</strong>
                                                                         </p>
                                                                         <p>
                                                                             {{ __('Delivery') . ' ' . __('Note') }}:
-                                                                            <strong>{{ $order->address->delivery_note }}</strong>
+                                                                            <strong>{{ @$order->address->delivery_note }}</strong>
                                                                         </p>
                                                                     @endif
                                                                 </div>
