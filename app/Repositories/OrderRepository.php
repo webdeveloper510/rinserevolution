@@ -11,7 +11,6 @@ use App\Models\DeliveryCost;
 use App\Models\DriverHistory;
 use App\Models\SubProduct;
 use Carbon\Carbon;
-use App\Models\Product;
 
 class OrderRepository extends Repository
 {
@@ -64,13 +63,6 @@ class OrderRepository extends Repository
             'order_status' => config('enums.payment_status.pending'),
             'address_id' => $address_id,
             'instruction' => $request->instruction
-        ]);
-
-
-        $products = new Product();
-        $products->update([
-            'subscription_status' => 1,
-            'subscription_type' => Product::find($productid)->name,
         ]);
 
         //$order = [$productid, ['quantity' => 1],['orderID' => $order->id]];

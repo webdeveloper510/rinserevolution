@@ -46,8 +46,8 @@
                                     <th scope="col">{{ __('Discount').' '.__('Price') }}</th>
                                     <th scope="col">{{ __('Price') }}</th>
                                     <th scope="col">{{ __('Description') }}</th>
-                                    <th scope="col">{{ __('Subscription Status') }}</th>
-                                    <th scope="col">{{ __('Subscription Type') }}</th>
+                                    <!--<th scope="col">{{ __('Subscription Status') }}</th>-->
+                                    <!--<th scope="col">{{ __('Subscription Type') }}</th>-->
                                     @can('product.status.toggle')
                                     <th scope="col">{{ __('Status') }}</th>
                                     @endcan
@@ -83,8 +83,8 @@
                                     <td>
                                         {{$product->description}}
                                     </td>
-                                    <td>{{ $product->subscription_status != 0 ? 'Active' : '--' }}</td>
-                                    <td>{{ $product->subscription_type ?? '--' }}</td>
+                                    {{--<td>{{ $product->subscription_status != 0 ? 'Active' : '--' }}</td>
+                                    <td>{{ $product->subscription_type ?? '--' }}</td>--}}
                                     @can('product.status.toggle')
                                     <td>
                                         <label class="switch">

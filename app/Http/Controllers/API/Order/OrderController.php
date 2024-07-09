@@ -18,6 +18,7 @@ use App\Services\NotificationServices;
 use App\Http\Resources\ScheduleResource;
 use App\Models\NotificationManage;
 use App\Repositories\ScheduleRepository;
+use App\Models\Product;
 
 class OrderController extends Controller
 {
@@ -34,6 +35,14 @@ class OrderController extends Controller
 
     public function storeOnsite(Request $request)
     {
+        $name = Product::find($request->product_id)->name;
+        $Products = [
+            'subscription_status' => 1,
+            'subscription_type' => $name,
+        ];
+        
+       Product::where('id', $request->product_id)->update($Products);
+        
         $order = (new OrderRepository())->storeByRequestNew($request);
 
         return response()->json([
