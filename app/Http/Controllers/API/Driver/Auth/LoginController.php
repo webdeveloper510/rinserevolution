@@ -79,31 +79,35 @@ class LoginController extends Controller
 
     public function show()
     {
-       $user = auth()->user();
-       return $this->json('user details', [
+        $user = auth()->user();
+        return $this->json('user details', [
             'user' => new UserResource($user)
         ]);
     }
 
     public function delete(User $user)
     {
-        $driver = $user->driver;
-        $driver->driverDevices()->delete();
-        $orders = $driver->orders;
-        foreach ($orders as $order) {
-            $order->drivers()->detach($driver->id);
-        }
-        $driver->orderHistories()->delete();
-        $driver->delete();
-
-        $photo = $user->profilePhoto;
-        if ($photo) {
-            if (Storage::exists($photo->src)) {
-                Storage::delete($photo->src);
+        try {
+            $driver = $user->driver;
+            $driver->driverDevices()->delete();
+            $orders = $driver->orders;
+            foreach ($orders as $order) {
+                $order->drivers()->detach($driver->id);
             }
-            $photo->delete();
+            $driver->orderHistories()->delete();
+            $driver->delete();
+
+            $photo = $user->profilePhoto;
+            if ($photo) {
+                if (Storage::exists($photo->src)) {
+                    Storage::delete($photo->src);
+                }
+                $photo->delete();
+            }
+            $user->delete();
+        } catch (\Exception $e) {
+            echo $e->getMessage();
         }
-        $user->delete();
 
         return $this->json('Account Delete Successfully', []);
     }
