@@ -48,6 +48,7 @@ class OrderResource extends JsonResource
             'id' => $this->id,
             'order_code' => $this->order_code,
             'type' => $this->platform == 'mobile' ? true : false,
+            'title' => 'dfdsfsd',
             'driver_status' => $this->pivot ? $this->pivot->status : null,
             'drivers' => $hasDriver,
             'customer' => (new CustomerResource($this->customer)),
