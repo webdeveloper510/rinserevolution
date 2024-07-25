@@ -21,6 +21,9 @@ class OrderResource extends JsonResource
         foreach($this->products as $product){
             $quantity[$product->id] = (int)$product->pivot->quantity;
         }
+        if ($quantity->isEmpty()) {
+            $quantity = null;
+        }
 
         if ($this->order_status != 'Delivered') {
             $hasDriver = $this->drivers->isEmpty() ? false : true;
@@ -61,8 +64,7 @@ class OrderResource extends JsonResource
             'item' => $this->products->count(),
             'address' => (new AddressResource($this->address)),
             'products' => ProductResource::collection($this->products),
-            // 'quantity' => $quantity,
-            'quantity' => empty($quantity) ? null : $quantity,
+            'quantity' => $quantity,
             'payment' => $this->payment ? (new PaymentResource($this->payment)) : null,
             'payment_url' => $payment_url
         ];
