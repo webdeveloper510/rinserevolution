@@ -70,7 +70,8 @@ class OrderResource extends JsonResource
             'item' => $this->products->count(),
             'address' => (new AddressResource($this->address)),
             'products' => ProductResource::collection($this->products),
-            'quantity' => $quantity,
+            // 'quantity' => $quantity,
+            'quantity' => [],
             'payment' => $this->payment ? (new PaymentResource($this->payment)) : null,
             'payment_url' => $payment_url
         ];
