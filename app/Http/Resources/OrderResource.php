@@ -22,6 +22,13 @@ class OrderResource extends JsonResource
             $quantity[$product->id] = (int)$product->pivot->quantity;
         }
 
+        $testARG['encode_true'] = json_encode($quantity, true);
+        $testARG['decode_true'] = json_decode($quantity, true);
+        $testARG['encode'] = json_encode($quantity);
+        $testARG['decode'] = json_decode($quantity);
+
+        prx($testARG);
+
         if ($this->order_status != 'Delivered') {
             $hasDriver = $this->drivers->isEmpty() ? false : true;
         }
@@ -61,7 +68,7 @@ class OrderResource extends JsonResource
             'item' => $this->products->count(),
             'address' => (new AddressResource($this->address)),
             'products' => ProductResource::collection($this->products),
-            'quantity' => json_decode($quantity, true),
+            'quantity' => $quantity,
             'payment' => $this->payment ? (new PaymentResource($this->payment)) : null,
             'payment_url' => $payment_url
         ];
