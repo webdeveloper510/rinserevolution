@@ -42,13 +42,15 @@ class OrderResource extends JsonResource
             $payment_url = route('payment', 'orderId=' . $this->id);
         }
 
+        $product_id = \App\Models\Product::find($this->product_id);
+
         App::setLocale('ar');
 
         return [
             'id' => $this->id,
             'order_code' => $this->order_code,
             'type' => $this->platform == 'mobile' ? true : false,
-            'title' => 'dfdsfsd',
+            'title' => $product_id->name,
             'driver_status' => $this->pivot ? $this->pivot->status : null,
             'drivers' => $hasDriver,
             'customer' => (new CustomerResource($this->customer)),

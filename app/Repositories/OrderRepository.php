@@ -48,6 +48,7 @@ class OrderRepository extends Repository
             'customer_id' => $customer->id,
             'order_code' => str_pad($lastOrder ? $lastOrder->id + 1 : 1, 6, "0", STR_PAD_LEFT),
             'platform' => $platform,
+            'product_id' => $productid,
             'prefix' => 'LM',
             'coupon_id' => $request->coupon_id,
             // 'discount' => $getAmount['discount'],
@@ -64,14 +65,6 @@ class OrderRepository extends Repository
             'address_id' => $address_id,
             'instruction' => $request->instruction
         ]);
-
-        //$order = [$productid, ['quantity' => 1],['orderID' => $order->id]];
-
-        // $ordData = [
-        //     'productid' => $productid,
-        //     'quantity' => 1,
-        //     'orderID' => $order->id,
-        // ];
         return $order;
     }
 

@@ -21,6 +21,7 @@ class CreateOrdersTable extends Migration
             $table->id();
             $table->string('order_code');
             $table->enum('platform', ['web', 'mobile'])->default('web');
+            $table->integer('product_id')->nullable();
             $table->string('prefix')->nullable();
             $table->foreignId('customer_id')
                 ->constrained((new Customer())->getTable());
