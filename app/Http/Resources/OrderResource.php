@@ -18,7 +18,7 @@ class OrderResource extends JsonResource
     public function toArray($request)
     {
         $quantity = collect([]);
-        foreach($this->products as $product){
+        foreach ($this->products as $product) {
             $quantity[$product->id] = (int)$product->pivot->quantity;
         }
 
@@ -31,7 +31,7 @@ class OrderResource extends JsonResource
 
         $payment_url = null;
         if (config('app.stripe_key') && config('app.stripe_secret')) {
-            $payment_url = route('payment','orderId='.$this->id);
+            $payment_url = route('payment', 'orderId=' . $this->id);
         }
 
         App::setLocale('ar');
@@ -61,7 +61,7 @@ class OrderResource extends JsonResource
             'item' => $this->products->count(),
             'address' => (new AddressResource($this->address)),
             'products' => ProductResource::collection($this->products),
-            'quantity' => $quantity,
+            'quantity' => (!empty($quantity) ? $quantity : null),
             'payment' => $this->payment ? (new PaymentResource($this->payment)) : null,
             'payment_url' => $payment_url
         ];
@@ -85,8 +85,8 @@ class OrderResource extends JsonResource
             '20' => '20-21:59',
             '21' => '20-21:59',
         ];
-        foreach($times as $key => $item){
-            if($key == $time){
+        foreach ($times as $key => $item) {
+            if ($key == $time) {
                 return $item;
             }
         }
