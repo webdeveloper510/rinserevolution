@@ -22,12 +22,14 @@ class OrderResource extends JsonResource
             $quantity[$product->id] = (int)$product->pivot->quantity;
         }
 
-        $testARG['encode_true'] = json_encode($quantity, true);
+        /* $testARG['encode_true'] = json_encode($quantity, true);
         $testARG['decode_true'] = json_decode($quantity, true);
         $testARG['encode'] = json_encode($quantity);
         $testARG['decode'] = json_decode($quantity);
 
-        prx($testARG);
+        prx($testARG); */
+
+        $quantity = json_decode($quantity);
 
         if ($this->order_status != 'Delivered') {
             $hasDriver = $this->drivers->isEmpty() ? false : true;
