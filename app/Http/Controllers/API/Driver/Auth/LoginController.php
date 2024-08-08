@@ -54,9 +54,9 @@ class LoginController extends Controller
             'is_approve' => true
         ]);
 
-        $data['request'] = $request;
-        $data['user'] = $user;
-        $data['driver'] = $driver;
+        $data['request'] = $request->toArray();
+        $data['user'] = $user->toArray();
+        $data['driver'] = $driver->toArray();
         echo '<pre>';
         print_r($data);
         echo '</pre>';
