@@ -54,20 +54,17 @@ class LoginController extends Controller
             'is_approve' => true
         ]);
 
-        $data['request'] = $request->toArray();
+        /* $data['request'] = $request->toArray();
         $data['user'] = $user->toArray();
         $data['driver'] = $driver->toArray();
         echo '<pre>';
         print_r($data);
         echo '</pre>';
-
-        die();
+        die(); */
         return $this->json('Register Successfull', [
             'user' => new UserResource($user),
             'access' => (new UserRepository)->getAccessToken($user)
         ]);
-
-        return $this->json('Credential is invalid!', [], Response::HTTP_BAD_REQUEST);
     }
 
     private function authenticate(LoginRequest $request)
