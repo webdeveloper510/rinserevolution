@@ -12,6 +12,7 @@ use App\Repositories\DriverDeviceKeyRepository;
 use App\Repositories\DriverRepository;
 use App\Repositories\UserRepository;
 use Illuminate\Http\Response;
+use App\Http\Requests\DriverRequest;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
@@ -34,6 +35,38 @@ class LoginController extends Controller
                 'access' => (new UserRepository)->getAccessToken($user)
             ]);
         }
+        return $this->json('Credential is invalid!', [], Response::HTTP_BAD_REQUEST);
+    }
+
+    public function register(DriverRequest $request)
+    {
+
+        $user = (new UserRepository())->registerUser($request);
+
+        $driver = (new DriverRepository())->storeByUser($user);
+
+        $user->assignRole('driver');
+
+        $user->update([
+            'mobile_verified_at' => now()
+        ]);
+        $driver->update([
+            'is_approve' => true
+        ]);
+
+        $data['request'] = $request;
+        $data['user'] = $user;
+        $data['driver'] = $driver;
+        echo '<pre>';
+        print_r($data);
+        echo '</pre>';
+
+        die();
+        return $this->json('Register Successfull', [
+            'user' => new UserResource($user),
+            'access' => (new UserRepository)->getAccessToken($user)
+        ]);
+
         return $this->json('Credential is invalid!', [], Response::HTTP_BAD_REQUEST);
     }
 

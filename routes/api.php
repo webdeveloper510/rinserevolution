@@ -133,6 +133,7 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth:api', 'role:admin']],
 // ==========Route for Driver==========
 
 Route::post('/driver/login', [DriverLoginController::class, 'login'])->name('driver.login');
+Route::post('/driver/register', [DriverLoginController::class, 'register'])->name('driver.register');
 
 Route::group(['prefix' => '/driver', 'middleware' => ['auth:api', 'role:driver']], function () {
 
