@@ -46,12 +46,15 @@ class OrderResource extends JsonResource
 
         App::setLocale('ar');
 
+        $driver_status = $this->pivot ? $this->pivot->status : null;
+        $driver_status = $driver_status == null ? $this->order_status : $driver_status;
+
         return [
             'id' => $this->id,
             'order_code' => $this->order_code,
             'type' => $this->platform == 'mobile' ? true : false,
             'title' => @$product_id->name,
-            'driver_status' => $this->pivot ? $this->pivot->status : null,
+            'driver_status' => $driver_status,
             'drivers' => $hasDriver,
             'customer' => (new CustomerResource($this->customer)),
             'discount' => (int) $this->discount,
