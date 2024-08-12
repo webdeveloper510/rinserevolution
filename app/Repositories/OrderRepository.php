@@ -211,7 +211,8 @@ class OrderRepository extends Repository
         $order->update([
             'order_status' => $status,
         ]);
-
+        $data['order_status'] = $order;
+        
         $drivers = $order->drivers;
 
         if ($drivers && $status == config('enums.order_status.delivered') || $status == config('enums.order_status.picked_order')) {
@@ -220,6 +221,15 @@ class OrderRepository extends Repository
                 $order->drivers()->detach($driver->id);
             }
         }
+
+        $data['status'] = $status;
+        $data['order_driver'] = $order;
+        $data['orderHistories'] = $drivers;
+
+        echo '<pre>';
+        print_r($data);
+        echo '</pre>';
+        die();
         return $order;
     }
 
