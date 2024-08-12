@@ -63,11 +63,6 @@ class DashboardController extends Controller
         }
         $order = (new OrderRepository())->StatusUpdateByRequest($order, $status);
 
-        echo '<pre>';
-        print_r($order);
-        echo '</pre>';
-        die();
-
         $notificationStatus = NotificationManage::where('name', $status)->first();
 
         if ($order->customer->devices->count() && $notificationStatus?->is_active) {
