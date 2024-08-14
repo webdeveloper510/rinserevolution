@@ -35,8 +35,8 @@
 </head>
 
 <body>
-    <div style="left:50%;margin-left:-306px;top:0px;width:612px;height:792px;border-style:outset;overflow:hidden">
-        <div style="left:72.02px;top:100.34px" class="cls_003">
+    <div style="border-style:outset">
+        <div class="cls_003">
             <h3><strong>Effective Date: June 1, 2024</strong></h3>
             <h4><strong>1. Introduction</strong></h4>
             <p>Welcome to the Rinse Revolution website ("we", "our", "us"). We are committed to protecting and respecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website [<a href="http://www.rinserevolution.com/">www.rinserevolution.com</a>] or use our services. Please read this policy carefully to understand our views and practices regarding your personal data and how we will treat it.</p>
