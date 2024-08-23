@@ -44,9 +44,10 @@ class ProductRepository extends Repository
 
         $sdasd['payments'] = $payments;
         $sdasd['auth'] = Auth::user();
-        
+        $sdasd['auth2'] = auth()->user();
+
         prx($sdasd);
-        
+
         $user_list = $payments->filter(function ($item) {
             $currentUserId = Auth::user()->id;
             if ($item->order->customer->user->id == $currentUserId) {
