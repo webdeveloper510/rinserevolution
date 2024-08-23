@@ -36,7 +36,7 @@ class ProductRepository extends Repository
         return $products->get();
     }
 
-    public function getProductsByServiceIdAndVariantId($serviceId = null, $variantId = null, $searchKey = null)
+    public function getProductsByServiceIdAndVariantId($serviceId = null, $variantId = null, $searchKey = null, $currentUserId = null)
     {
         $products = $this->model()::query()->whereNull('product_id');
 
@@ -45,11 +45,11 @@ class ProductRepository extends Repository
         $sdasd['payments'] = $payments;
         $sdasd['payment_id'] = $payments[0]->order->customer->user->id;
         $sdasd['auth2'] = auth()->user();
+        $sdasd['auth_val'] = $currentUserId;
 
         prx($sdasd);
 
-        $user_list = $payments->filter(function ($item) {
-            $currentUserId = Auth::user()->id;
+        $user_list = $payments->filter(function ($item) use ($currentUserId) {
             if ($item->order->customer->user->id == $currentUserId) {
                 return $item;
             }
@@ -73,14 +73,14 @@ class ProductRepository extends Repository
 
         $products_data = $products->orderBy('order', 'asc')->isActive()->get();
 
-        /* $products_map_data = $products_data->map(function ($items) {
+        /* $products_map_data = $products_data->map(function ($item) {
             $payments = Payment::getPayments();
             $currentUserId = Auth::id();
             $data['currentUserId'] = $currentUserId;
-            $data['items'] = $items;
+            $data['item'] = $item;
             $data['payments'] = $payments;
-$items->subscription_status =  
-            return $items;
+            $item->subscription_status = $item->order->customer->user->id == $currentUserId 
+            return $item;
         });
 
         prx($products_map_data); */
