@@ -6,7 +6,6 @@ use App\Http\Requests\ProductRequest;
 use App\Models\Product;
 use App\Models\Payment;
 use Illuminate\Support\Facades\Storage;
-use Auth;
 
 class ProductRepository extends Repository
 {
@@ -43,7 +42,6 @@ class ProductRepository extends Repository
         $payments = Payment::getPayments();
 
         $sdasd['payments'] = $payments;
-        $sdasd['auth'] = Auth::user();
         $sdasd['auth2'] = auth()->user();
 
         prx($sdasd);
