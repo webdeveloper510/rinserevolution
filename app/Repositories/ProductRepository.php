@@ -49,7 +49,7 @@ class ProductRepository extends Repository
             }
         });
         $data['user_list'] = $user_list;
-        // pr($payments);
+        prx($data);
 
         if ($serviceId) {
             $products = $products->where('service_id', $serviceId);
