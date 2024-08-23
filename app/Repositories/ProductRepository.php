@@ -41,7 +41,14 @@ class ProductRepository extends Repository
         $products = $this->model()::query()->whereNull('product_id');
 
         $payments = Payment::getPayments();
-        $currentUserId = Auth::id();
+        
+        $user_list = array_filter($payments, function($items){
+            $currentUserId = Auth::id();
+            if($items->order->customer->user->id == $currentUserId) {
+                return $itemsitems;
+            }
+        });
+        $data['user_list'] = $user_list;
         // pr($payments);
 
         if ($serviceId) {
@@ -59,14 +66,17 @@ class ProductRepository extends Repository
 
         $products_data = $products->orderBy('order', 'asc')->isActive()->get();
 
-       /*  $products_map_data = $products_data->map(function ($items) {
+        $products_map_data = $products_data->map(function ($items) {
             $payments = Payment::getPayments();
             $currentUserId = Auth::id();
             $data['currentUserId'] = $currentUserId;
             $data['items'] = $items;
             $data['payments'] = $payments;
-            return $data;
-        }); */
+$items->subscription_status =  
+            return $items;
+        });
+
+        prx($products_map_data);
 
         return $products_data;
     }
