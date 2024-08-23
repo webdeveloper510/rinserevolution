@@ -14,8 +14,10 @@ class ProductController extends Controller
         $variantId = \request('variant_id');
         $searchKey = \request('search');
 
+        $currentUserId = auth()->user();
+
         $products = (new ProductRepository())
-            ->getProductsByServiceIdAndVariantId($serviceId, $variantId, $searchKey);
+            ->getProductsByServiceIdAndVariantId($serviceId, $variantId, $searchKey, $currentUserId);
 
         return $this->json('product list', [
             'products' => ProductResource::collection($products)
