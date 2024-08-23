@@ -42,7 +42,7 @@ class ProductRepository extends Repository
         $payments = Payment::getPayments();
 
         $sdasd['payments'] = $payments;
-        $sdasd['auth2'] = auth()->user();
+        $sdasd['auth2'] = auth()->user()->id;
         $sdasd['session'] = $_SESSION;
         $sdasd['request'] = $_REQUEST;
 
