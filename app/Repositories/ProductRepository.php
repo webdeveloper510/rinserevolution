@@ -4,7 +4,6 @@ namespace App\Repositories;
 
 use App\Http\Requests\ProductRequest;
 use App\Models\Product;
-use App\Models\Payment;
 use Illuminate\Support\Facades\Storage;
 
 class ProductRepository extends Repository
@@ -38,10 +37,6 @@ class ProductRepository extends Repository
     public function getProductsByServiceIdAndVariantId($serviceId = null, $variantId = null, $searchKey = null)
     {
         $products = $this->model()::query()->whereNull('product_id');
-
-        $payments = Payment::getPayments();
-
-        prx($payments);
 
         if ($serviceId) {
             $products = $products->where('service_id', $serviceId);
