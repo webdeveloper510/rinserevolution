@@ -43,7 +43,8 @@ class ProductRepository extends Repository
         $payments = Payment::getPayments();
 
         $sdasd['payments'] = $payments;
-        $sdasd['auth2'] = new Auth;
+        $sdasd['payment_id'] = $payments[0]->order->customer->user->id;
+        $sdasd['auth2'] = auth()->user();
 
         prx($sdasd);
 
