@@ -6,6 +6,7 @@ use App\Http\Requests\ProductRequest;
 use App\Models\Product;
 use App\Models\Payment;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class ProductRepository extends Repository
 {
@@ -40,8 +41,8 @@ class ProductRepository extends Repository
         $products = $this->model()::query()->whereNull('product_id');
 
         $payments = Payment::getPayments();
-
-        prx($payments);
+        $currentUserId = Auth::id();
+        // pr($payments);
 
         if ($serviceId) {
             $products = $products->where('service_id', $serviceId);

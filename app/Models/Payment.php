@@ -17,8 +17,6 @@ class Payment extends Model
     public static function getPayments()
     {
         $orders = self::with('order.customer.user')->first();
-
-        $data['orders'] = $orders->toArray();
-        return $data;
+        return $orders;
     }
 }
