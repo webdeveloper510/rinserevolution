@@ -42,14 +42,14 @@ class ProductRepository extends Repository
 
         $payments = Payment::getPayments();
         
-        $user_list = array_filter($payments, function($items){
+        /* $user_list = array_filter($payments, function($items){
             $currentUserId = Auth::id();
             if($items->order->customer->user->id == $currentUserId) {
                 return $items;
             }
         });
-        $data['user_list'] = $user_list;
-        prx($data);
+        $data['user_list'] = $user_list; */
+        prx($payments);
 
         if ($serviceId) {
             $products = $products->where('service_id', $serviceId);
@@ -66,7 +66,7 @@ class ProductRepository extends Repository
 
         $products_data = $products->orderBy('order', 'asc')->isActive()->get();
 
-        $products_map_data = $products_data->map(function ($items) {
+        /* $products_map_data = $products_data->map(function ($items) {
             $payments = Payment::getPayments();
             $currentUserId = Auth::id();
             $data['currentUserId'] = $currentUserId;
@@ -76,7 +76,7 @@ $items->subscription_status =
             return $items;
         });
 
-        prx($products_map_data);
+        prx($products_map_data); */
 
         return $products_data;
     }
