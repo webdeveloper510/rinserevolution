@@ -5,7 +5,6 @@ namespace App\Http\Controllers\API\Product;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ProductResource;
 use App\Repositories\ProductRepository;
-use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -15,10 +14,8 @@ class ProductController extends Controller
         $variantId = \request('variant_id');
         $searchKey = \request('search');
 
-        $currentUserId = auth()->user() ?? Auth::user();
-
         $products = (new ProductRepository())
-            ->getProductsByServiceIdAndVariantId($serviceId, $variantId, $searchKey, $currentUserId);
+            ->getProductsByServiceIdAndVariantId($serviceId, $variantId, $searchKey);
 
         return $this->json('product list', [
             'products' => ProductResource::collection($products)

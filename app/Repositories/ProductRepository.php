@@ -5,7 +5,6 @@ namespace App\Repositories;
 use App\Http\Requests\ProductRequest;
 use App\Models\Product;
 use App\Models\Payment;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class ProductRepository extends Repository
@@ -36,27 +35,26 @@ class ProductRepository extends Repository
         return $products->get();
     }
 
-    public function getProductsByServiceIdAndVariantId($serviceId = null, $variantId = null, $searchKey = null, $currentUserId = null)
+    public function getProductsByServiceIdAndVariantId($serviceId = null, $variantId = null, $searchKey = null)
     {
         $products = $this->model()::query()->whereNull('product_id');
 
         $payments = Payment::getPayments();
 
-        $sdasd['payments'] = $payments;
+        /* $sdasd['payments'] = $payments;
         $sdasd['payment_id'] = $payments[0]->order->customer->user->id;
         $sdasd['auth2'] = auth()->user();
         $sdasd['auth_val'] = $currentUserId;
 
-        prx($sdasd);
+        prx($sdasd); */
 
-        $user_list = $payments->filter(function ($item) use ($currentUserId) {
+
+        $user_list = $payments->filter(function ($item) {
+            $currentUserId = auth()->user();
             if ($item->order->customer->user->id == $currentUserId) {
                 return $item;
             }
         });
-
-        // $data['user_list'] = $user_list;
-        prx($user_list);
 
         if ($serviceId) {
             $products = $products->where('service_id', $serviceId);
@@ -72,18 +70,7 @@ class ProductRepository extends Repository
         }
 
         $products_data = $products->orderBy('order', 'asc')->isActive()->get();
-
-        /* $products_map_data = $products_data->map(function ($item) {
-            $payments = Payment::getPayments();
-            $currentUserId = Auth::id();
-            $data['currentUserId'] = $currentUserId;
-            $data['item'] = $item;
-            $data['payments'] = $payments;
-            $item->subscription_status = $item->order->customer->user->id == $currentUserId 
-            return $item;
-        });
-
-        prx($products_map_data); */
+        $products_data['user_list'] = $user_list;
 
         return $products_data;
     }
