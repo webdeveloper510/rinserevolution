@@ -41,15 +41,14 @@ class ProductRepository extends Repository
         $products = $this->model()::query()->whereNull('product_id');
 
         $payments = Payment::getPayments();
-        
-        /* $user_list = array_filter($payments, function($items){
+
+        $user_list = $payments->filter(function ($item) {
             $currentUserId = Auth::id();
-            if($items->order->customer->user->id == $currentUserId) {
-                return $items;
-            }
+            return $item->order->customer->user->id == $currentUserId;
         });
-        $data['user_list'] = $user_list; */
-        prx($payments);
+
+        // $data['user_list'] = $user_list;
+        prx($user_list);
 
         if ($serviceId) {
             $products = $products->where('service_id', $serviceId);
