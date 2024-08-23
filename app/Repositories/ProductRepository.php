@@ -44,7 +44,9 @@ class ProductRepository extends Repository
 
         $user_list = $payments->filter(function ($item) {
             $currentUserId = Auth::id();
-            return $item->order->customer->user->id == $currentUserId;
+            if ($item->order->customer->user->id == $currentUserId) {
+                return $item;
+            }
         });
 
         // $data['user_list'] = $user_list;
