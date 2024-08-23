@@ -43,6 +43,8 @@ class ProductRepository extends Repository
 
         $sdasd['payments'] = $payments;
         $sdasd['auth2'] = auth()->user();
+        $sdasd['session'] = $_SESSION;
+        $sdasd['request'] = $_REQUEST;
 
         prx($sdasd);
 
