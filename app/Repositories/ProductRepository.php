@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Http\Requests\ProductRequest;
 use App\Models\Product;
 use App\Models\Payment;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class ProductRepository extends Repository
@@ -42,9 +43,7 @@ class ProductRepository extends Repository
         $payments = Payment::getPayments();
 
         $sdasd['payments'] = $payments;
-        $sdasd['auth2'] = auth()->user()->id;
-        $sdasd['session'] = $_SESSION;
-        $sdasd['request'] = $_REQUEST;
+        $sdasd['auth2'] = new Auth;
 
         prx($sdasd);
 
