@@ -40,6 +40,10 @@ class ProductRepository extends Repository
     {
         $products = $this->model()::query()->whereNull('product_id');
 
+        $payments = Payment::getPayments();
+        $currentUserId = Auth::id();
+        pr($payments);
+
         if ($serviceId) {
             $products = $products->where('service_id', $serviceId);
         }
@@ -53,16 +57,18 @@ class ProductRepository extends Repository
                 ->orWhere('price', 'like', "%{$searchKey}%");
         }
 
-        $payments = Payment::getPayments();
-        $products = $products->orderBy('order', 'asc')->isActive()->map(function ($items) use ($payments) {
+        $products_data = $products->orderBy('order', 'asc')->isActive()->get();
+
+        $products_map_data = $products_data->map(function ($items) {
+            $payments = Payment::getPayments();
             $currentUserId = Auth::id();
             $data['currentUserId'] = $currentUserId;
             $data['items'] = $items;
             $data['payments'] = $payments;
-            pr($data);
+            return $data;
         });
 
-        return $products;
+        return $products_map_data;
     }
 
     public function storeByRequest(ProductRequest $request): Product
