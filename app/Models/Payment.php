@@ -14,7 +14,7 @@ class Payment extends Model
     {
         return $this->belongsTo(Order::class, 'order_id');
     }
-    public function getPayments()
+    public static function getPayments()
     {
         $order_id = self::with('order')->first();
 
