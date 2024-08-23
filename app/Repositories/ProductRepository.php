@@ -52,7 +52,7 @@ class ProductRepository extends Repository
         });
 
         // $data['user_list'] = $user_list;
-        prx($user_list);
+        prx($user_list->toArray());
 
         if ($serviceId) {
             $products = $products->where('service_id', $serviceId);
