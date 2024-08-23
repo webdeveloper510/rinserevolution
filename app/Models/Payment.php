@@ -16,7 +16,7 @@ class Payment extends Model
     }
     public static function getPayments()
     {
-        $orders = self::with('order.customer.user')->first();
+        $orders = self::with('order.customer.user')->get();
         return $orders;
     }
 }

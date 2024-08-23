@@ -42,7 +42,7 @@ class ProductRepository extends Repository
 
         $payments = Payment::getPayments();
         $currentUserId = Auth::id();
-        pr($payments);
+        // pr($payments);
 
         if ($serviceId) {
             $products = $products->where('service_id', $serviceId);
@@ -59,16 +59,16 @@ class ProductRepository extends Repository
 
         $products_data = $products->orderBy('order', 'asc')->isActive()->get();
 
-        $products_map_data = $products_data->map(function ($items) {
+       /*  $products_map_data = $products_data->map(function ($items) {
             $payments = Payment::getPayments();
             $currentUserId = Auth::id();
             $data['currentUserId'] = $currentUserId;
             $data['items'] = $items;
             $data['payments'] = $payments;
             return $data;
-        });
+        }); */
 
-        return $products_map_data;
+        return $products_data;
     }
 
     public function storeByRequest(ProductRequest $request): Product
