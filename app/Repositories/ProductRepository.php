@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Http\Requests\ProductRequest;
+use App\Models\Payment;
 use App\Models\Product;
 use Illuminate\Support\Facades\Storage;
 
@@ -51,7 +52,16 @@ class ProductRepository extends Repository
                 ->orWhere('price', 'like', "%{$searchKey}%");
         }
 
-        return $products->orderBy('order', 'asc')->isActive()->get();
+        $products_map = $products->orderBy('order', 'asc')->isActive()->get();
+        $products_map = $products_map->map(function ($map) {
+            $payments = Payment::getPayments();
+            $map->payments = $payments;
+            return $map;
+        });
+
+        return $products_map;
+
+        // return $products->orderBy('order', 'asc')->isActive()->get();
     }
 
     public function storeByRequest(ProductRequest $request): Product

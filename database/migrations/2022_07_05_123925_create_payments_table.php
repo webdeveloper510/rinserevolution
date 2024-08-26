@@ -20,6 +20,8 @@ class CreatePaymentsTable extends Migration
             $table->foreignId('order_id')->constrained((new Order())->getTable());
             $table->string('object');
             $table->string('brand');
+            // $table->integer('user_id');
+            // $table->integer('product_id');
             $table->string('status');
             $table->date('exp');
             $table->integer('last_no');

@@ -15,18 +15,26 @@ class ProductResource extends JsonResource
     public function toArray($request)
     {
         $discount = null;
-        if($this->price > $this->discount_price && $this->discount_price > 0){
+        if ($this->price > $this->discount_price && $this->discount_price > 0) {
             $percentage = ceil(($this->discount_price - $this->price) / $this->price * 100);
-            $incrementOrDecrement = substr($percentage, 0 ,1);
-            if($incrementOrDecrement == '-'){
+            $incrementOrDecrement = substr($percentage, 0, 1);
+            if ($incrementOrDecrement == '-') {
                 $discount = $percentage;
+            }
+        }
+
+
+        foreach ($this->payments as $key_pay => $value_pay) {
+            if (!empty($value_pay->order->products[0])) {
+                $match_case = $value_pay->users_id == $this->login_user && $this->id == $value_pay->order->products[0]->id  ? true : false;
             }
         }
 
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'subscription_status' => $this->subscription_status ?? false,
+            // 'subscription_status' => $this->subscription_status ?? false,
+            'subscription_status' => $match_case,
             'subscription_type' => $this->subscription_type ?? '',
             'name_bn' => $this->name_bn,
             'slug' => $this->slug,
@@ -37,7 +45,8 @@ class ProductResource extends JsonResource
             'discount_percentage' => $discount,
             'sub_products' => SubProductResource::collection($this->subProducts),
             'service' => (new ServiceResource($this->service)),
-            'variant' => (new VariantResource($this->variant))
+            'variant' => (new VariantResource($this->variant)),
+            // 'payments' => $this->payments,
         ];
     }
 }

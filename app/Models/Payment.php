@@ -16,7 +16,14 @@ class Payment extends Model
     }
     public static function getPayments()
     {
-        $orders = self::with('order.customer.user')->get();
-        return $orders;
+        $users = self::with('order.customer.user')->get();
+        $products = self::with('order.products')->get();
+
+        $map_products =  $products->map(function ($m_prod) use ($users) {
+            $product_key = $m_prod->order->products->isNotEmpty() ?? array_keys($m_prod);
+            $m_prod->users_id = $users[$product_key]->order->customer->user->id;
+            return $m_prod;
+        });
+        return $map_products;
     }
 }

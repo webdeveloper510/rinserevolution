@@ -106,7 +106,9 @@ Route::get('/promotions', [PromotionController::class, 'index']);
 Route::get('/services', [ServiceController::class, 'index']);
 Route::get('/additional-services', [AdditionalServiceController::class, 'index']);
 Route::get('/variants', [VariantController::class, 'index']);
-Route::get('/products', [ProductController::class, 'index']);
+Route::middleware(['auth:api'])->group(function () {
+    Route::get('/products', [ProductController::class, 'index']);
+});
 Route::get('/legal-pages/{page:slug}', [SettingController::class, 'show']);
 
 Route::post('/contacts', [ContactController::class, 'store']);
