@@ -26,7 +26,7 @@ class ProductResource extends JsonResource
 
         foreach ($this->payments as $key_pay => $value_pay) {
             if (!empty($value_pay->order->products[0])) {
-                $match_case = $value_pay->users_id == $this->login_user && $this->id == $value_pay->order->products[0]->id  ? 1 : 0;
+                $match_case = $value_pay->users_id == $this->login_user && $this->id == $value_pay->order->products[0]->id  ? true : false;
             }
         }
 
@@ -34,7 +34,7 @@ class ProductResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             // 'subscription_status' => $this->subscription_status ?? false,
-            'subscription_status' => $match_case,
+            'subscription_status' => (int)$match_case,
             'subscription_type' => $this->subscription_type ?? '',
             'name_bn' => $this->name_bn,
             'slug' => $this->slug,
