@@ -23,11 +23,14 @@ class ProductResource extends JsonResource
             }
         }
 
-
-        foreach ($this->payments as $key_pay => $value_pay) {
-            if (!empty($value_pay->order->products[0])) {
-                $match_case = $value_pay->users_id == $this->login_user && $this->id == $value_pay->order->products[0]->id  ? true : false;
+        if (isset($this->payments) && $this->payments->isNotEmpty()) {
+            foreach ($this->payments as $key_pay => $value_pay) {
+                if (!empty($value_pay->order->products[0])) {
+                    $match_case = $value_pay->users_id == $this->login_user && $this->id == $value_pay->order->products[0]->id  ? true : false;
+                }
             }
+        } else {
+            $match_case = '';
         }
 
         return [
