@@ -49,7 +49,7 @@ class ProductResource extends JsonResource
             'sub_products' => SubProductResource::collection($this->subProducts),
             'service' => (new ServiceResource($this->service)),
             'variant' => (new VariantResource($this->variant)),
-            // 'payments' => $this->payments,
+            'payments' => $this->payments,
         ];
     }
 }
