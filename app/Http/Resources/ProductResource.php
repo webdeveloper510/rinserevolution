@@ -32,7 +32,7 @@ class ProductResource extends JsonResource
         } else {
             $match_case = '';
         } */
-        $match_case = 0;
+        /* $match_case = 0;
         if (isset($this->payments_data) && $this->payments_data->isNotEmpty()) {
             foreach ($this->payments_data as $key_pay => $value_pay) {
                 if ($value_pay['user_id'] == $this->login_user && $this->id == $value_pay['product_id']) {
@@ -41,13 +41,13 @@ class ProductResource extends JsonResource
             }
         } else {
             $match_case = 0;
-        }
+        } */
 
         return [
             'id' => $this->id,
             'name' => $this->name,
             // 'subscription_status' => $this->subscription_status ?? false,
-            'subscription_status' => (int)$match_case,
+            'subscription_status' => (int)$this->match_case,
             'subscription_type' => $this->subscription_type ?? '',
             'name_bn' => $this->name_bn,
             'slug' => $this->slug,

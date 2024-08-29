@@ -19,7 +19,23 @@ class ProductController extends Controller
         $products = (new ProductRepository())
             ->getProductsByServiceIdAndVariantId($serviceId, $variantId, $searchKey);
         $products = $products->map(function ($item) use ($user_id) {
+
+
+
+            $match_case = 0;
+            if (isset($item->payments_data) && $item->payments_data->isNotEmpty()) {
+                foreach ($item->payments_data as $key_pay => $value_pay) {
+                    if ($value_pay['user_id'] == $user_id && $item->id == $value_pay['product_id']) {
+                        $match_case = 1;
+                    }
+                }
+            } else {
+                $match_case = 0;
+            }
+
+
             $item->login_user = $user_id;
+            $item->match_case = $match_case;
             return $item;
         });
         return $this->json('product list', [
