@@ -55,10 +55,9 @@ class ProductRepository extends Repository
         $products_map = $products->orderBy('order', 'asc')->isActive()->get();
         $products_map = $products_map->map(function ($map) {
             $payments = Payment::getPayments();
-            $map->payments = $payments;
+            $map->payments_data = $payments;
             return $map;
         });
-
         return $products_map;
 
         // return $products->orderBy('order', 'asc')->isActive()->get();

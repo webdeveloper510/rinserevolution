@@ -23,14 +23,24 @@ class ProductResource extends JsonResource
             }
         }
 
-        if (isset($this->payments) && $this->payments->isNotEmpty()) {
-            foreach ($this->payments as $key_pay => $value_pay) {
+        /* if (isset($this->payments_data) && $this->payments_data->isNotEmpty()) {
+            foreach ($this->payments_data as $key_pay => $value_pay) {
                 if (!empty($value_pay->order->products[0])) {
                     $match_case = $value_pay->users_id == $this->login_user && $this->id == $value_pay->order->products[0]->id  ? true : false;
                 }
             }
         } else {
             $match_case = '';
+        } */
+        $match_case = 0;
+        if (isset($this->payments_data) && $this->payments_data->isNotEmpty()) {
+            foreach ($this->payments_data as $key_pay => $value_pay) {
+                if ($value_pay['user_id'] == $this->login_user && $this->id == $value_pay['product_id']) {
+                    $match_case = 1;
+                }
+            }
+        } else {
+            $match_case = 0;
         }
 
         return [
@@ -49,7 +59,7 @@ class ProductResource extends JsonResource
             'sub_products' => SubProductResource::collection($this->subProducts),
             'service' => (new ServiceResource($this->service)),
             'variant' => (new VariantResource($this->variant)),
-            'payments' => $this->payments,
+            // 'payments' => $this->payments,
         ];
     }
 }
