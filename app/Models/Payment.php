@@ -55,7 +55,9 @@ class Payment extends Model
             if ($data['product_id'] != null && $data['customer_id'] != null) {
                 return $data;
             }
-        })->values();
+        })->values()->sortBy([
+            ['order_id', 'desc'],
+        ]);
         return $map_data;
     }
 }
