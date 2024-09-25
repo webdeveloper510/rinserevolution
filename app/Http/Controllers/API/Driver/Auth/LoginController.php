@@ -104,7 +104,8 @@ class LoginController extends Controller
                 'user' => (new UserResource($user))
             ]);
         }
-        return $this->json('Incurrect password', [], Response::HTTP_BAD_REQUEST);
+        // return $this->json('Incurrect password', [], Response::HTTP_BAD_REQUEST);
+        return $this->json('Incorrect Password', [], Response::HTTP_BAD_REQUEST);
     }
 
     public function show()
